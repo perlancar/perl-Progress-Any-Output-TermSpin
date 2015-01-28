@@ -183,7 +183,7 @@ sub DESTROY {
 
  # set options
  Progress::Any::Output->set('TermSpin',
-                            style=>, fh=>\*STDERR, speed=>0.2, show_delay=>5);
+                            style=>"bubble", fh=>\*STDOUT, speed=>0.2, show_delay=>5);
 
 
 =head1 DESCRIPTION
@@ -209,6 +209,8 @@ Available styles:
 =item * fh => handle (default: \*STDOUT)
 
 Instead of the default STDOUT, you can direct the output to another filehandle.
+
+=item * speed => float (default: 0.2)
 
 =item * show_delay => int
 

@@ -10,23 +10,26 @@ use Progress::Any::Output;
 use Test::More 0.98;
 
 subtest default => sub {
-    Progress::Any::Output->set('TermProgressBarColor');
+    Progress::Any::Output->set('TermSpin');
     my $progress = Progress::Any->get_indicator(target=>10);
     my ($out, $err, $exit) = capture {
         $progress->update(message => "foo");
     };
-    like($out, qr/foo/);
-    like($out, qr/10%/);
+    like($out, qr{\|});
 };
 
 subtest "fh option" => sub {
-    Progress::Any::Output->set('TermProgressBarColor', fh=>\*STDERR);
+    Progress::Any::Output->set('TermSpin', fh=>\*STDERR);
     my $progress = Progress::Any->get_indicator(target=>10);
     my ($out, $err, $exit) = capture {
         $progress->update(message => "foo");
     };
-    like($err, qr/foo/);
-    like($err, qr/20%/);
+    like($err, qr{\|});
 };
 
+# XXX test speed option
+# XXX test style option
+# XXX test show_delay option
+
+DONE_TESTING:
 done_testing;
