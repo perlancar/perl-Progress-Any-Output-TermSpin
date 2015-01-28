@@ -5,6 +5,7 @@ package Progress::Any::Output::TermSpin;
 
 use 5.010001;
 use strict;
+use utf8;
 use warnings;
 
 #use Color::ANSI::Util qw(ansifg ansibg);
@@ -15,8 +16,9 @@ use Time::HiRes qw(time);
 $|++;
 
 our %STYLES = (
-    line   => {utf8=>0, chars=>'|/-\\'},
-    bubble => {utf8=>0, chars=>'.oO'},
+    line     => {utf8=>0, chars=>'|/-\\'},
+    bubble   => {utf8=>0, chars=>'.oOo'},
+    pie_utf8 => {utf8=>1, chars=>'○◔◑◕●'},
 );
 
 # patch handles
