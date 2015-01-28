@@ -98,6 +98,10 @@ sub new {
 
     my $self = bless \%args, $class;
     $self->_patch;
+
+    # XXX hackish
+    $Progress::Any::output_data{"$self"}{freq} = -$args{speed};
+
     $self;
 }
 
