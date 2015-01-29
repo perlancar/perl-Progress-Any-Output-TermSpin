@@ -117,6 +117,18 @@ sub update {
         return if $now - $self->{show_delay} < $self->{_last_hide_time};
     }
 
+    # cleanup if finished
+    my $p = $args{indicator};
+    my $tottgt = $p->total_target;
+    my $totpos = $p->total_pos;
+    my $is_complete = $p->{state} eq 'finished' ||
+        defined($tottgt) && $tottgt > 0 && $totpos == $tottgt;
+    if ($is_complete) {
+        $self->cleanup;
+        $self->keep_delay_showing;
+        return;
+    }
+
     # "erase" previous display
     my $ll = $self->{_lastlen};
     if (defined $self->{_lastlen}) {
