@@ -25,7 +25,7 @@ our %STYLES = (
 my ($ph1, $ph2, $ph3);
 
 my $laa_obj;
-my $printed_log;
+my $has_printed_log;
 
 sub _patch {
     my $out = shift;
@@ -42,7 +42,7 @@ sub _patch {
             # can print spinning cursor
 
             $laa_obj = $self;
-            $printed_log++;
+            $has_printed_log++;
         }
     ) if defined &{"Log::Any::Adapter::ScreenColoredLevel::hook_after_log"};
 
@@ -55,7 +55,7 @@ sub _patch {
             $out->cleanup;
 
             # print newline before log (see above comment)
-            return unless $printed_log;
+            return unless $has_printed_log;
             print { $self->{_fh} } "\n";
 
             $out->keep_delay_showing if $out->{show_delay};
@@ -67,7 +67,7 @@ sub _patch {
         sub {
             my $self = shift;
 
-            return unless $printed_log;
+            return unless $has_printed_log;
             print { $self->{_fh} } "\n";
         }
     );
@@ -164,7 +164,7 @@ sub DESTROY {
     my $self = shift;
     $self->_unpatch;
 
-    return unless $printed_log;
+    return unless $has_printed_log;
     print { $laa_obj->{_fh} // \*STDOUT } "\n";
     undef $laa_obj;
 }
