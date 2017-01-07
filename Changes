@@ -1,5 +1,3 @@
-Revision history for Progress-Any-Output-TermSpin
-
 0.02    2015-01-29 (PERLANCAR)
 
 	- [Bugfix] Forgot to cleanup when finished.
